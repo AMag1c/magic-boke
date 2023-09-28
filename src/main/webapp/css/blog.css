@@ -1,0 +1,378 @@
+
+[v-cloak] {
+    display: none;
+}
+
+.all {
+    width: auto;
+    /* background-color: rgb(245, 245, 245); */
+}
+
+.index-header {
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    /* display: flex; */
+    width: auto;
+    height: 66px;
+    position: fixed;
+    z-index: 999;
+    transition: height 0.8s ease-out;
+}
+
+.header_blog {
+    height: 66px;
+}
+
+.logopicture {
+    width: 80px;
+    height: 66px;
+}
+
+.header_logo {
+    float: right;
+}
+
+.line {
+    background-color: rgb(64, 65, 67);
+    margin: 10px 10px 0 16px;
+    width: 1px;
+    height: 50px;
+    position: relative;
+    float: right;
+}
+
+.header_navbar {
+    display: flex;
+    height: 66px;
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 10px 0 10px;
+}
+
+.header_Cloud {
+    position: absolute;
+    z-index: 1;
+    transition: all 0.2s ease-out 0s;
+    background-color: rgb(105, 224, 255);
+    height: 5px;
+    left: 10px;
+    width: 70px;
+    top: 0px;
+    margin: 0 15px 0 15px;
+}
+
+.header_navitem a:hover {
+    text-shadow: 0 0 10px #69e0ff, 0 0 40px #69e0ff, 0 0 40px #69e0ff;
+    color: #fff;
+}
+
+.header_hover {
+    text-shadow: 0 0 10px #69e0ff, 0 0 20px #69e0ff, 0 0 40px #69e0ff;
+    color: white;
+}
+
+.header_navitem li a {
+    position: relative;
+    top: 0px;
+    float: left;
+    width: 100px;
+    height: 66px;
+    margin: 0 10px 0 10px;
+    line-height: 66px;
+    font-size: 25px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    cursor: pointer;
+}
+
+.header_search {
+    position: absolute;
+    top: 0;
+    width: 360px;
+    margin: 16px 0 0 400px;
+
+}
+
+
+.body_blog {
+    margin-top: 10px;
+}
+
+
+.body_blog_1 {
+    height: 980px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.body_blog_2 {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.body_blog_2_newarticle {
+    margin: 15px 30px 10px 20px;
+    border-radius: 10px;
+    background-color: rgb(137, 109, 74);
+
+}
+
+.body_blog_2_essay {
+    /*display: inline-block;*/
+    /*width: 100%;*/
+    margin: 10px 0 10px 0;
+
+}
+
+.body_blog_essay_touxiang {
+    /*display: inline-block;*/
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+
+.body_blog_username {
+    height: 50px;
+    width: 400px;
+    background-color: rgb(231, 217, 217);
+}
+
+.body_blog_username p {
+    margin: 3px 0 0 8px;
+}
+
+
+.body_blog_username_option {
+    height: 50px;
+    width: 50px;
+    margin: 0 0 0 100px;
+}
+
+.body_blog_username_option span {
+    cursor: pointer;
+    color: #409EFF;
+}
+
+.body_blog_username_option i {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+.body_blog_time {
+    font-size: 5px;
+    background-color: rgb(184, 174, 174);
+}
+
+.body_blog_content {
+    /*display: flex;*/
+    margin: 0 0 0 54px;
+    width: 550px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+
+.body_blog_2_head_1 {
+    height: 200px;
+    width: auto;
+    background-color: rgb(77, 77, 77)
+}
+
+.body_blog_2_user {
+    height: 50px;
+}
+
+.body_blog_2_touxiang {
+    width: 100px;
+    height: 100px;
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 160px 0 0 20px;
+    float: left;
+}
+
+.body_blog_2_touxiang img {
+    width: 100px;
+    height: 100px;
+}
+
+.body_blog_2_user {
+    margin: 0 20px 10px 0;
+}
+
+.body_blog_2_user p {
+    margin: 0 0 0 140px;
+}
+
+.body_blog_2_profile {
+    margin: 20px 0 20px 0;
+
+}
+
+.body_blog_2_profile p {
+    margin: 0 0 0 40px;
+    font-size: 16px;
+
+}
+
+.body_blog_2_option,
+.body_blog_like {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.body_blog_2_option div {
+    margin: 10px;
+}
+
+.body_blog_2_flag {
+    display: flex;
+    padding: 0 0 0 10px;
+    height: 24px;
+    background-color: rgb(245, 245, 245);
+}
+
+.body_blog_2_photo_chek {
+    height: 80px;
+    width: 140px;
+    overflow: hidden;
+    border-radius: 10%;
+}
+
+.body_blog_2_photo_chek img {
+    height: 80px;
+    width: 140px;
+
+}
+
+.discussdetails{
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+
+.input_modify {
+    margin: 20px 0 10px 40px;
+
+
+}
+
+.body_blog_3 {
+    /* height: 920px; */
+    border-radius: 10px;
+}
+
+.body_blog_3_head {
+    height: 430px;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.body_blog_3_touxiang {
+    width: 100px;
+    height: 100px;
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    margin: 50px 70px 0 70px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    float: left;
+
+}
+
+
+.body_blog_3_touxiang img {
+    width: 100px;
+    height: 100px;
+}
+
+.body_blog_3_head_1 {
+    height: 100px;
+    border-radius: 10px 10px 0 0;
+    width: auto;
+    background-color: rgb(77, 77, 77)
+}
+
+.attention_button {
+    width: 160px;
+    height: 30px;
+    margin: 20px 50px 10px 50px;
+    line-height: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    /* 鼠标手型 */
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: rgb(0, 174, 236);
+}
+
+.attention_Send {
+    margin: 10px 0 10px 90px;
+}
+
+.attention_fans {
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    margin: 15px 10px 15px 30px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.attention_set {
+    display: inline-block;
+    margin: 0 20px 0 0px;
+    font-size: 20px;
+}
+
+
+.body_blog_3_head_2 {
+    width: auto;
+}
+
+
+.body_blog_3_end {
+    height: 360px;
+    margin: 10px 0 10px 0;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Personal_body_icon {
+    margin: 60px 10px 0 60px;
+    font-size: 25px;
+}
+
+.login_button {
+    position: absolute;
+    top: 0;
+    margin: 14px 0 0 780px;
+}
+
+.login_logo {
+    margin: 10px 30px 10px 30px;
+    width: 226px;
+    height: 160px;
+}
+
+.loginbox_input {
+    margin: 15px 0 15px 0;
+}
+

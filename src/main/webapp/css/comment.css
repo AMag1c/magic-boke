@@ -1,0 +1,104 @@
+body {
+    background-image: url(../image/beijing.png);
+    background-size: cover;
+}
+
+.home {
+    margin-right: 10%;
+    margin-left: 10%;
+    height: 1000px;
+    border-radius: 5px;
+    background-color: rgba(246, 246, 246, 0.897);
+}
+
+.home1 {
+    height: 100%;
+    margin-right: 15%;
+    margin-left: 15%;
+    background-color: rgba(255, 255, 255);
+}
+
+.message {
+    height: 30%;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+.messagebox {
+    height: 160px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-top: 10px;
+}
+
+.messagebox-portrait {
+    float: left;
+    height: 64px;
+    width: 64px;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.messagebox-portrait img{
+    width: 64px;height: 64px;
+}
+
+
+.messagebox-information {
+    height: 32px;
+    width: 732px;
+}
+
+.messagebox-body {
+    height: 100%;
+    margin-left: 64px;
+    padding-bottom: 10px;
+}
+
+.messagebox-name {
+    height: 32px;
+}
+
+.messagebox-name p {
+    margin-top: 8px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    float: left;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.messagebox-time {
+    height: 32px;
+}
+.messagebox-time p{
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.messagebox-content {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+
+.item label {
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.item input {
+    display: none;
+}

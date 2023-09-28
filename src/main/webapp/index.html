@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="./css/blog.css">
+
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./element-ui/lib/index.js"></script>
+
+    <!--    <script type="text/javascript" src="./js/vue-router.js"></script>-->
+    <script type="text/javascript" src="./js/index.js" defer></script>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./element-ui/lib/theme-chalk/index.css">
+
+    <script type="text/javascript" src="./js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+    <title>index</title>
+
+</head>
+<style>
+    [v-cloak] {
+        display: none !important;
+    }
+</style>
+
+<body style="background-color: rgb(245, 245, 245);">
+
+<div class="all" id="all" v-cloak>
+<!--    页首-->
+    <div class="index-header shadow-sm row">
+        <div class="header_blog col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <div class="line"></div>
+            <div class="header_logo">
+                <a href="./index.html"><img class="logopicture" src="./image/logo.png" data-dark="" alt="微博儿"> </a>
+            </div>
+        </div>
+
+        <div class="header_blog col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="header_navbar">
+                <div class="header_Cloud"></div>
+                <div class="header_navitem row">
+                    <li><a href="index.html" style="font-weight: bold;text-decoration:none"><i
+                            class="el-icon-s-home"></i>首页</a>
+                    </li>
+                    <li><a href="" style="font-weight: bold;text-decoration:none"><i
+                            class="el-icon-s-management"></i>信息</a>
+                    </li>
+                    <li><a href="personal_center.html" style="font-weight: bold;text-decoration:none"><i
+                            class="el-icon-s-custom"></i>个人</a>
+                    </li>
+                </div>
+            </div>
+            <div class="header_search">
+                <el-input size="medium" @keyup.enter.native="sousuo()" placeholder="输入关键字搜索" v-model="inputSearch"
+                          class="input-with-select"
+                          clearable>
+                    <el-button slot="append" icon="el-icon-search" @click.native="sousuo()"></el-button>
+                </el-input>
+            </div>
+            <div class="login_button">
+                <div v-if="ty==0">
+                    <el-button type="primary" @click="dialog = true" size="medium"><i class="el-icon-s-custom"></i>登录/注册
+                    </el-button>
+                </div>
+                <div v-if="ty==1">
+                    <i class="el-icon-user-solid">{{userState.object.userName}}</i>
+                    <el-button type="warning" @click="zhuxiao()" size="medium">注销</el-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header_blog col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+
+    </div>
+
+<!--    登录delog-->
+    <el-dialog :visible.sync="dialog" width="338px" :show-close="false" center>
+        <div>
+            <img class="login_logo" src="./image/logo.png" data-dark="" alt="微博儿">
+
+            <el-radio-group style="margin-left:70px" v-model="radio">
+                <el-radio-button label="登录" @click.native="zr='A'"></el-radio-button>
+                <el-radio-button label="注册" @click.native="zr='B'"></el-radio-button>
+            </el-radio-group>
+
+            <div v-if="zr === 'A'">
+
+                <div class="loginbox_input">
+                    <el-input placeholder="*用户名" v-model="userLogin.userName" clearable></el-input>
+                </div>
+
+                <div class="loginbox_input">
+                    <el-input placeholder="*密码" @keyup.enter.native="denglu()" v-model="userLogin.password"
+                              show-password clearable></el-input>
+                </div>
+
+                <el-button type="primary" size="medium" @click="denglu()" style="width: 100%">{{messageModel.login}}
+                </el-button>
+            </div>
+
+            <div v-if="zr === 'B'">
+                <div class="loginbox_input">
+                    <el-input placeholder="*用户名" minlength="3" maxlength="10" v-model="userRegister.userName"
+                              show-word-limit clearable></el-input>
+                </div>
+                <div class="loginbox_input">
+                    <el-input placeholder="*绑定邮箱" v-model="userRegister.email" clearable></el-input>
+                </div>
+                <div class="loginbox_input">
+                    <el-input placeholder="*密码" v-model="userRegister.password" show-password clearable></el-input>
+                </div>
+                <div class="loginbox_input">
+                    <el-input placeholder="*再次输入密码" @keyup.enter.native="zhuce()" v-model="userRegister.passwordAgain"
+                              show-password
+                              clearable></el-input>
+                </div>
+                <el-button type="primary" size="medium" @click="zhuce()" style="width: 100%">{{messageModel.register}}
+                </el-button>
+            </div>
+            <div><a href="" style="margin-left: 115px;">忘记密码?</a></div>
+        </div>
+    </el-dialog>
+
+<!--    左侧内容选项-->
+    <div class="body_blog container">
+        <div class="row">
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <div class="body_blog_1">
+                    <div style="padding: 10px 20px 10px 20px;font-size: 30px;font-weight:bold;">
+                        首页
+                    </div>
+                    <div style="height: 1px;background-color: rgb(88, 90, 94);margin: 0 5px 5px 5px;">
+                    </div>
+                    <div class="body_blog_Options">
+                            <div style="padding: 10px 20px 10px 20px;font-size: 20px;cursor: pointer;" @click="articleModel.current=1;articlesattention()" v-if="ty==1">
+                                <i class="fa fa-list-ul"></i>
+                                <span>全部关注</span>
+                            </div>
+                            <div style="padding: 10px 20px 10px 20px;font-size: 20px;cursor: pointer;">
+                                <i class="fa fa-fire"></i>
+                                <span>热门</span>
+                            </div>
+                            <div style="padding: 10px 20px 10px 20px;font-size: 20px;cursor: pointer;" @click="articleModel.current=1;articlesall()">
+                                <i class="fa fa-rocket"></i>
+                                <span>最新</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+<!--            文章内容-->
+            <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 row" >
+                <div class="body_blog_2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-if="us==0">
+<!--                    发布文章输入框-->
+                    <div style="margin: 0 0 20px 0; " v-if="ty==1">
+                        <div class="body_blog_2_newarticle">
+                            <el-input type="textarea" maxlength="280" resize=none :autosize="{ minRows: 3, maxRows: 4}"
+                                      placeholder="请输入内容" v-model="article.articleDetails" show-word-limit clearable>
+                            </el-input>
+                        </div>
+
+                        <div>
+                            <a href="" style="display: inline-block;"><i class="fa fa-smile-o"
+                                                                         style="margin-left: 20px; color: black;font-size: 22px;"></i>
+                            </a>
+
+                            <span class="item" style="margin-left: 20px;display: inline-block;">
+                                <i class="fa fa-image" style="color: black;font-size: 20px;"></i>
+
+                                </span>
+                            <div>
+                                <div v-if="co === 'A'">
+                                    <el-button type="success" @click="articleadd()" size="small">发布</el-button>
+                                </div>
+
+                                <div v-else>
+                                    <el-button type="success" @click="co = 'A';article.articleDetails='';" size="small">
+                                        取消
+                                    </el-button>
+                                    <el-button type="success" @click="articlemodify()" size="small">修改并发布</el-button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+<!--                    文章内容-->
+                    <div v-loading.lock="articlesLoading">
+                        <article class="body_blog_2_essay" v-for="(articles,key) in articleModel.pojo">
+                            <header style="height: 50px;display: flex">
+<!--                                文章内容及选项区-->
+                                <div style="cursor: pointer;" class="body_blog_essay_touxiang"
+                                     @click="articleModel.current=1;userdetails(articles.userName)">
+                                    <img style="height: 50px;width:50px;" src="./image/tx.png ">
+                                </div>
+                                <div class="body_blog_username">
+                                    <div style="height: 25px">
+                                        <p style="font-size: 18px;font-weight: bold;">{{articles.userName}}</p>
+                                    </div>
+                                    <div style="font-size: 12px;height: 25px">
+                                        <p>{{articles.modifyTime}}</p>
+                                    </div>
+                                </div>
+                                <div class="body_blog_username_option">
+                                    <el-dropdown trigger="click">
+                                        <span><i class="el-icon-arrow-down el-icon--right"></i></span>
+                                        <el-dropdown-menu slot="dropdown">
+                                            <el-dropdown-item :disabled="loginpd(articles.userName)">收藏
+                                            </el-dropdown-item>
+                                            <el-dropdown-item :disabled="loginpd(articles.userName)"
+                                                              @click.native="articletransmit(articles.articleId,articles.articleDetails)">
+                                                编辑
+                                            </el-dropdown-item>
+                                            <el-dropdown-item :disabled="loginpd(articles.userName)"
+                                                              @click.native="articledelete(articles.articleId)">删除
+                                            </el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </el-dropdown>
+                                </div>
+                            </header>
+
+<!--                            点赞评论区域-->
+                            <div>
+                                <div class="body_blog_content">
+                                    {{articles.articleDetails}}
+                                </div>
+
+                                <div class="body_blog_like">
+                                    <div style="cursor: pointer;">
+                                        <i class="fa fa-mail-forward">
+                                        </i>
+                                        <span>{{articles.articleTransmit}}</span>
+                                    </div>
+                                    <div style="cursor: pointer;" @click="showdiscuss(articles.articleId,key)">
+                                        <i class="fa fa-commenting-o">
+                                        </i>
+                                        <span>{{articles.articleDiscuss}}</span>
+
+                                    </div>
+                                    <div style="cursor: pointer;" @click="userlike(articles.articleId)">
+                                        <i class="fa fa-thumbs-o-up" style="color: black">
+                                        </i>
+                                        <span>{{articles.articleLike}}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+<!--                            评论区-->
+                            <div style="background-color: #a0cfff;" v-if="ts===key">
+                                <div style="display: flex;background-color: #ba8b00" v-if="ty==1">
+                                    <img style="height: 40px;width:40px;border-radius: 50%;margin: 5px"
+                                         src="./image/tx.png ">
+                                    <el-input type="textarea" @keyup.enter.native="discussadd(articles.articleId)"
+                                              v-model="discuss.discussDetails" placeholder="发布你的评论"
+                                              style="width: 80%;margin: 5px 0 0 10px" resize=none
+                                              maxlength="140" resize=none :autosize="{ minRows: 1, maxRows: 3}"
+                                              clearable>
+                                    </el-input>
+                                    <el-button type="success" @click="discussadd(articles.articleId)" size="small"
+                                               style="margin: 10px 0 10px 10px">
+                                        发布
+                                    </el-button>
+                                </div>
+                                <div v-for="discuss in discussModel.pojo">
+                                    <div>
+                                        <img style="height: 40px;width:40px;border-radius: 50%;margin: 5px;float: left"
+                                             src="./image/tx.png ">
+                                    </div>
+                                    <div style="margin-left:5px ">
+                                        <a style="font-size: 16px;font-weight: bold;">{{discuss.userName}}&nbsp&nbsp</a><span
+                                            style="font-size: 12px">{{discuss.modifyTime}}</span>
+                                    </div>
+                                    <div class="discussdetails"
+                                         style="width: 540px;border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);margin: 0 0 10px 50px;background-color: #c6e2ff">
+                                        {{discuss.discussDetails}}
+                                    </div>
+                                </div>
+                                <el-pagination
+                                        @size-change="(val) => handleSizeChange(articles.articleId, val)"
+                                        @current-change="(val) => handleCurrentChange(articles.articleId, val)"
+                                        :current-page="1"
+                                        :page-sizes="[5,10, 15, 20]"
+                                        :page-size="5"
+                                        layout="total, sizes, prev, pager, next, jumper"
+                                        :total="discussModel.totalCount">
+                                </el-pagination>
+                            </div>
+
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+<!--                用户的详情页-->
+                <div class="body_blog_2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-if="us==1">
+                    <div style="margin: 0 0 20px 0;">
+                        <div class="body_blog_2_touxiang">
+                            <img src="./image/tx.png ">
+                        </div>
+                        <div class="body_blog_2_head_1">
+                        </div>
+                        <div class="body_blog_2_user">
+                            <div style="float: right;margin: 5px">
+                                <el-button @click="followusers(user.userName)"  v-if="gzpd==0" :bind="attentionpd(user.userName)"  round>关注</el-button>
+                                <el-button @click="unsubscribe(user.userName)" v-if="gzpd==1" round>取消关注</el-button>
+                                <el-button disabled round>私信</el-button>
+                            </div>
+                            <div>
+                                <p style="font-size: 18px;font-weight: bold;">{{user.userName}}</p>
+                            </div>
+                            <div style="font-size: 16px;">
+                                <p> 粉丝{{user.userFanNum}}</p>
+                            </div>
+                        </div>
+                        <div class="body_blog_2_profile">
+                            <p>{{user.userIntroduction}}</p>
+                        </div>
+                        <div style="height: 1px;background-color: rgb(88, 90, 94);margin: 0 5px 5px 5px;">
+                        </div>
+                        <div class="body_blog_2_option">
+                            <div style="cursor: pointer;" @click="li=0">
+                                文章
+                            </div>
+                            <div style="cursor: pointer;" @click="li=1;photoselect(user.userName)">
+                                相册
+                            </div>
+                            <div style="cursor: pointer;">
+                                影音
+                            </div>
+                        </div>
+                        <div class="body_blog_2_flag">
+                            <span>全部(26)</span>
+                        </div>
+                    </div>
+
+                    <div class="body_blog_2_homepage" v-if="li==0">
+                        <div v-loading.lock="articlesLoading">
+                            <article class="body_blog_2_essay" v-for="(articles,key) in articleModel.pojo">
+                                <header style="height: 50px;background-color: blue;display: flex">
+                                    <div class="body_blog_essay_touxiang">
+                                        <img style="height: 50px;width:50px;" src="./image/tx.png ">
+                                    </div>
+                                    <div class="body_blog_username">
+                                        <div style="height: 25px">
+                                            <p style="font-size: 16px;font-weight: bold;">{{articles.userName}}</p>
+                                        </div>
+                                        <div style="font-size: 12px;height: 25px">
+                                            <p>{{articles.modifyTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="body_blog_username_option">
+                                        <el-dropdown trigger="click">
+                                            <span><i class="el-icon-arrow-down el-icon--right"></i></span>
+                                            <el-dropdown-menu slot="dropdown">
+                                                <el-dropdown-item :disabled="loginpd(articles.userName)">收藏
+                                                </el-dropdown-item>
+                                            </el-dropdown-menu>
+                                        </el-dropdown>
+                                    </div>
+                                </header>
+
+<!--                                用户的文章内容-->
+                                <div>
+                                    <div class="body_blog_content">
+                                        {{articles.articleDetails}}
+                                    </div>
+
+                                    <div class="body_blog_like">
+                                        <div style="cursor: pointer;">
+                                            <i class="fa fa-mail-forward">
+                                            </i>
+                                            <span>{{articles.articleTransmit}}</span>
+                                        </div>
+                                        <div style="cursor: pointer;" @click="showdiscuss(articles.articleId,key)">
+                                            <i class="fa fa-commenting-o">
+                                            </i>
+                                            <span>{{articles.articleDiscuss}}</span>
+
+                                        </div>
+                                        <div style="cursor: pointer;">
+                                            <i class="fa fa-thumbs-o-up" style="color: black">
+                                            </i>
+                                            <span>{{articles.articleLike}}</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+<!--                                评论的发布-->
+                                <div style="background-color: #a0cfff;" v-if="ts===key">
+                                    <div style="display: flex;background-color: #ba8b00">
+                                        <img style="height: 40px;width:40px;border-radius: 50%;margin: 5px"
+                                             src="./image/tx.png ">
+                                        <el-input type="textarea" v-model="discuss.discussDetails" placeholder="发布你的评论"
+                                                  style="width: 80%;margin: 5px 0 0 10px" v-model="text" resize=none
+                                                  maxlength="140" resize=none :autosize="{ minRows: 1, maxRows: 3}"
+                                                  clearable>
+                                        </el-input>
+                                        <el-button type="success" @click="discussadd(articles.articleId)" size="small"
+                                                   style="margin: 10px 0 10px 10px">
+                                            发布
+                                        </el-button>
+                                    </div>
+                                    <div v-for="discuss in discussModel.pojo">
+                                        <div>
+                                            <img style="height: 40px;width:40px;border-radius: 50%;margin: 5px;float: left"
+                                                 src="./image/tx.png ">
+                                        </div>
+                                        <div style="margin-left:5px ">
+                                            <a>{{discuss.userName}}&nbsp</a><span>{{discuss.modifyTime}}</span>
+                                        </div>
+                                        <div style="width: 540px;border-radius:4px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);margin: 0 0 10px 50px;background-color: #c6e2ff">
+                                            {{discuss.discussDetails}}
+                                        </div>
+                                    </div>
+                                    <el-pagination
+                                            @size-change="(val) => handleSizeChange(articles.articleId, val)"
+                                            @current-change="(val) => handleCurrentChange(articles.articleId, val)"
+                                            :current-page="1"
+                                            :page-sizes="[5,10, 15, 20]"
+                                            :page-size="5"
+                                            layout="total, sizes, prev, pager, next, jumper"
+                                            :total="discussModel.totalCount">
+                                    </el-pagination>
+                                </div>
+
+
+                            </article>
+
+                        </div>
+                    </div>
+
+
+                    <div v-if="li==1">
+                        <span v-for="(photo,key) in photos" style="vertical-align: top;">
+                            <img style="height: 150px;width: 150px" :src="photo.photoPath">
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+<!--            未登录时右侧登录用户信息-->
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" v-if="ty==0">
+                <div class="body_blog_3">
+                    <div class="body_blog_3_head">
+
+                    </div>
+
+                    <div class="body_blog_3_end">
+                            <span class="Personal_body_icon">
+                                <a href="" style="color: rgb(33,37,41);"><i class="fa fa-qq"></i></a>
+                            </span>
+                        <span class="Personal_body_icon">
+                                <a href="" style="color: rgb(33,37,41);"><i class="fa fa-wechat"></i></a>
+                            </span>
+                        <span class="Personal_body_icon">
+                                <a href="" style="color: rgb(33,37,41);"><i class="fa fa-github"></i></a>
+                            </span>
+                        <span class="Personal_body_icon">
+                                <a href="" style="color: rgb(33,37,41);"><i class="fa fa-wheelchair"></i></a>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <!--            已登录时右侧登录用户信息-->
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" v-if="ty==1">
+                <div class="body_blog_3">
+                    <div class="body_blog_3_head">
+                        <div class="body_blog_3_touxiang">
+                            <img src="./image/tx.png ">
+                        </div>
+                        <div class="body_blog_3_head_1">
+                        </div>
+                        <div class="body_blog_3_head_2">
+                            <div>
+                                <h1 style="margin:0 40px 0px 40px;position: relative;text-align: center;"><a
+                                        href="index.html"
+                                        style="text-decoration: none;color: rgb(52, 73, 94);font-size: 30px;">{{userState.object.userName}}</a>
+                                </h1>
+                                <blockquote style="margin: 0 20px 0px 20px;" class="blockquote mb-0">
+                                    <p style="margin: 10px 0 10px 0;">{{userState.object.userIntroduction}}</p>
+                                    <footer class="blockquote-footer">otto</footer>
+                                </blockquote>
+                            </div>
+
+                            <div>
+                                <div
+                                        style="height: 1px;background-color: rgb(64, 65, 67);margin: 20px 30px 10px 30px;">
+                                </div>
+                                <div class="attention_fans">
+                                    {{userState.object.userFanNum}}粉丝
+                                </div>
+                                <div class="attention_set">
+                                    <a href="" style="text-decoration:none;color: rgb(30,159,117);"><i
+                                            class="fa fa-cog"></i>个人管理</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body_blog_3_end">
+                                        <span class="Personal_body_icon">
+                                            <a href="" style="color: rgb(33,37,41);"><i class="fa fa-qq"></i></a>
+                                        </span>
+                        <span class="Personal_body_icon">
+                                            <a href="" style="color: rgb(33,37,41);"><i class="fa fa-wechat"></i></a>
+                                        </span>
+                        <span class="Personal_body_icon">
+                                            <a href="" style="color: rgb(33,37,41);"><i class="fa fa-github"></i></a>
+                                        </span>
+                        <span class="Personal_body_icon">
+                                            <a href="" style="color: rgb(33,37,41);"><i
+                                                    class="fa fa-wheelchair"></i></a>
+                                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
